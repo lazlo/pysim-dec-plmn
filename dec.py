@@ -37,19 +37,18 @@ def mnc_from_plmn(plmn):
 	return mnc
 
 def act(twohexbytes):
+	act_list = [
+		{'bit': 15, 'name': "UTRAN"},
+		{'bit': 14, 'name': "E-UTRAN"},
+		{'bit':  7, 'name': "GSM"},
+		{'bit':  6, 'name': "GSM COMPACT"},
+		{'bit':  5, 'name': "cdma2000 HRPD"},
+		{'bit':  4, 'name': "cdma2000 1xRTT"},
+	]
 	ia = hexstr_to_intarr(twohexbytes)
 	u16t = (ia[0] << 8)|ia[1]
 	sel = []
-	if u16t & (1 << 15):
-		sel.append("UTRAN")
-	if u16t & (1 << 14):
-		sel.append("E-UTRAN")
-	if u16t & (1 << 7):
-		sel.append("GSM")
-	if u16t & (1 << 6):
-		sel.append("GSM COMPACT")
-	if u16t & (1 << 5):
-		sel.append("cdma2000 HRPD")
-	if u16t & (1 << 4):
-		sel.append("cdma2000 1xRTT")
+	for a in act_list:
+		if u16t & (1 << a['bit']):
+			sel.append(a['name'])
 	return sel

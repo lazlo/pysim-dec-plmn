@@ -23,5 +23,9 @@ class DecTestCase(unittest.TestCase):
 	def testDecAct_allSet(self):
 		self.assertEqual(dec.act("ffff"), ["UTRAN", "E-UTRAN", "GSM", "GSM COMPACT", "cdma2000 HRPD", "cdma2000 1xRTT"])
 
+	def testDecxPlmn_w_act(self):
+		expected = {'mcc': 295, 'mnc': 10, 'act': ["UTRAN"]}
+		self.assertEqual(dec.xplmn_w_act("92f5018000"), expected)
+
 if __name__ == "__main__":
 	unittest.main()

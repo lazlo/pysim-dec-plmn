@@ -52,3 +52,15 @@ def act(twohexbytes):
 		if u16t & (1 << a['bit']):
 			sel.append(a['name'])
 	return sel
+
+def xplmn_w_act(fivehexbytes):
+	res = {'mcc': 0, 'mnc': 0, 'act': []}
+	plmn_chars = 6
+	act_chars = 4
+	plmn_str = fivehexbytes[:plmn_chars]				# first three bytes (six ascii hex chars)
+	act_str = fivehexbytes[plmn_chars:plmn_chars + act_chars]	# two bytes after first three bytes
+	res['mcc'] = mcc_from_plmn(plmn_str)
+	res['mnc'] = mnc_from_plmn(plmn_str)
+	res['act'] = act(act_str)
+
+	return res

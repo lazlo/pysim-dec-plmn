@@ -35,3 +35,21 @@ def mnc_from_plmn(plmn):
 		mnc += digit2 * 10
 		mnc += digit3
 	return mnc
+
+def act(twohexbytes):
+	ia = hexstr_to_intarr(twohexbytes)
+	u16t = (ia[0] << 8)|ia[1]
+	sel = []
+	if u16t & (1 << 15):
+		sel.append("UTRAN")
+	if u16t & (1 << 14):
+		sel.append("E-UTRAN")
+	if u16t & (1 << 7):
+		sel.append("GSM")
+	if u16t & (1 << 6):
+		sel.append("GSM COMPACT")
+	if u16t & (1 << 5):
+		sel.append("cdma2000 HRPD")
+	if u16t & (1 << 4):
+		sel.append("cdma2000 1xRTT")
+	return sel

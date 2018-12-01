@@ -19,3 +19,19 @@ def mcc_from_plmn(plmn):
 	mcc += digit2 * 10
 	mcc += digit3
 	return mcc
+
+def mnc_from_plmn(plmn):
+	ia = hexstr_to_intarr(plmn)
+	digit1 = ia[2] & 0x0F		# 3rd byte, LSB
+	digit2 = (ia[2] & 0xF0) >> 4	# 3rd byte, MSB
+	digit3 = (ia[1] & 0xF0) >> 4	# 2nd byte, MSB
+	mnc = 0
+	# signifies two digit MNC
+	if digit3 == 0xF:
+		mnc += digit1 * 10
+		mnc += digit2
+	else:
+		mnc += digit1 * 100
+		mnc += digit2 * 10
+		mnc += digit3
+	return mnc

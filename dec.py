@@ -9,6 +9,16 @@ def hexstr_to_intarr(s):
 		a.append(v)
 	return a
 
+def hexstr_to_fivebytearr(input_str):
+	a = []
+	chars = 10 # hex ascii characters in a record
+	n_records = len(input_str) / chars
+	for i in range(0, n_records):
+		offset = i * chars
+		upto = offset + chars
+		a.append(input_str[offset:upto])
+	return a
+
 # Accepts hex string representing three bytes
 def mcc_from_plmn(plmn):
 	ia = hexstr_to_intarr(plmn)

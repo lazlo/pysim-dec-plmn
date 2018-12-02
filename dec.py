@@ -35,6 +35,8 @@ def mnc_from_plmn(plmn):
 	digit1 = ia[2] & 0x0F		# 3rd byte, LSB
 	digit2 = (ia[2] & 0xF0) >> 4	# 3rd byte, MSB
 	digit3 = (ia[1] & 0xF0) >> 4	# 2nd byte, MSB
+	if digit3 == 0xF and digit2 == 0xF and digit1 == 0xF:
+		return 0xFFF # 4095
 	mnc = 0
 	# signifies two digit MNC
 	if digit3 == 0xF:

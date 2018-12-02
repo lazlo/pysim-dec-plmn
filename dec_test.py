@@ -18,29 +18,29 @@ class DecTestCase(unittest.TestCase):
 		self.assertEqual(dec.hexstr_to_fivebytearr(input_str), expected)
 
 	def testDecMCCfromPLMN(self):
-		self.assertEqual(dec.mcc_from_plmn("92f501"), 295)
+		self.assertEqual(dec.dec_mcc_from_plmn("92f501"), 295)
 
 	def testDecMCCfromPLMN_unused(self):
-		self.assertEqual(dec.mcc_from_plmn("ff0f00"), 4095)
+		self.assertEqual(dec.dec_mcc_from_plmn("ff0f00"), 4095)
 
 	def testDecMNCfromPLMN_twoDigitMNC(self):
-		self.assertEqual(dec.mnc_from_plmn("92f501"), 10)
+		self.assertEqual(dec.dec_mnc_from_plmn("92f501"), 10)
 
 	def testDecMNCfromPLMN_threeDigitMNC(self):
-		self.assertEqual(dec.mnc_from_plmn("031263"), 361)
+		self.assertEqual(dec.dec_mnc_from_plmn("031263"), 361)
 
 	def testDecMNCfromPLMN_unused(self):
-		self.assertEqual(dec.mnc_from_plmn("00f0ff"), 4095)
+		self.assertEqual(dec.dec_mnc_from_plmn("00f0ff"), 4095)
 
 	def testDecAct_noneSet(self):
-		self.assertEqual(dec.act("0000"), [])
+		self.assertEqual(dec.dec_act("0000"), [])
 
 	def testDecAct_allSet(self):
-		self.assertEqual(dec.act("ffff"), ["UTRAN", "E-UTRAN", "GSM", "GSM COMPACT", "cdma2000 HRPD", "cdma2000 1xRTT"])
+		self.assertEqual(dec.dec_act("ffff"), ["UTRAN", "E-UTRAN", "GSM", "GSM COMPACT", "cdma2000 HRPD", "cdma2000 1xRTT"])
 
 	def testDecxPlmn_w_act(self):
 		expected = {'mcc': 295, 'mnc': 10, 'act': ["UTRAN"]}
-		self.assertEqual(dec.xplmn_w_act("92f5018000"), expected)
+		self.assertEqual(dec.dec_xplmn_w_act("92f5018000"), expected)
 
 	def testPrintXplmn_w_act(self):
 		input_str = "92f501800092f5508000ffffff0000ffffff0000ffffff0000ffffff0000ffffff0000ffffff0000ffffff0000ffffff0000"

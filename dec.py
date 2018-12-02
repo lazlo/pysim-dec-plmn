@@ -12,7 +12,7 @@ def hexstr_to_fivebytearr(input_str):
 	return a
 
 # Accepts hex string representing three bytes
-def mcc_from_plmn(plmn):
+def dec_mcc_from_plmn(plmn):
 	ia = h2i(plmn)
 	digit1 = ia[0] & 0x0F		# 1st byte, LSB
 	digit2 = (ia[0] & 0xF0) >> 4	# 1st byte, MSB
@@ -24,7 +24,7 @@ def mcc_from_plmn(plmn):
 	mcc += digit3
 	return mcc
 
-def mnc_from_plmn(plmn):
+def dec_mnc_from_plmn(plmn):
 	ia = h2i(plmn)
 	digit1 = ia[2] & 0x0F		# 3rd byte, LSB
 	digit2 = (ia[2] & 0xF0) >> 4	# 3rd byte, MSB
@@ -42,7 +42,7 @@ def mnc_from_plmn(plmn):
 		mnc += digit3
 	return mnc
 
-def act(twohexbytes):
+def dec_act(twohexbytes):
 	act_list = [
 		{'bit': 15, 'name': "UTRAN"},
 		{'bit': 14, 'name': "E-UTRAN"},
@@ -59,21 +59,21 @@ def act(twohexbytes):
 			sel.append(a['name'])
 	return sel
 
-def xplmn_w_act(fivehexbytes):
+def dec_xplmn_w_act(fivehexbytes):
 	res = {'mcc': 0, 'mnc': 0, 'act': []}
 	plmn_chars = 6
 	act_chars = 4
 	plmn_str = fivehexbytes[:plmn_chars]				# first three bytes (six ascii hex chars)
 	act_str = fivehexbytes[plmn_chars:plmn_chars + act_chars]	# two bytes after first three bytes
-	res['mcc'] = mcc_from_plmn(plmn_str)
-	res['mnc'] = mnc_from_plmn(plmn_str)
-	res['act'] = act(act_str)
+	res['mcc'] = dec_mcc_from_plmn(plmn_str)
+	res['mnc'] = dec_mnc_from_plmn(plmn_str)
+	res['act'] = dec_act(act_str)
 	return res
 
 def print_xplmn_w_act(hexstr):
 	s = ""
 	for rec_data in hexstr_to_fivebytearr(hexstr):
-		rec_info = xplmn_w_act(rec_data)
+		rec_info = dec_xplmn_w_act(rec_data)
 		if rec_info['mcc'] == 0xFFF and rec_info['mnc'] == 0xFFF:
 			rec_str = "unused"
 		else:

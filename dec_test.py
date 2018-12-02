@@ -42,5 +42,20 @@ class DecTestCase(unittest.TestCase):
 		expected = {'mcc': 295, 'mnc': 10, 'act': ["UTRAN"]}
 		self.assertEqual(dec.xplmn_w_act("92f5018000"), expected)
 
+	def testPrintXplmn_w_act(self):
+		input_str = "92f501800092f5508000ffffff0000ffffff0000ffffff0000ffffff0000ffffff0000ffffff0000ffffff0000ffffff0000"
+		expected = '''92f5018000 # MCC: 295 MNC:  10 AcT: UTRAN
+92f5508000 # MCC: 295 MNC:   5 AcT: UTRAN
+ffffff0000 # unused
+ffffff0000 # unused
+ffffff0000 # unused
+ffffff0000 # unused
+ffffff0000 # unused
+ffffff0000 # unused
+ffffff0000 # unused
+ffffff0000 # unused
+'''
+		self.assertEqual(dec.print_xplmn_w_act(input_str), expected)
+
 if __name__ == "__main__":
 	unittest.main()

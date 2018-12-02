@@ -76,5 +76,15 @@ def xplmn_w_act(fivehexbytes):
 	res['mcc'] = mcc_from_plmn(plmn_str)
 	res['mnc'] = mnc_from_plmn(plmn_str)
 	res['act'] = act(act_str)
-
 	return res
+
+def print_xplmn_w_act(hexstr):
+	s = ""
+	for rec_data in hexstr_to_fivebytearr(hexstr):
+		rec_info = xplmn_w_act(rec_data)
+		if rec_info['mcc'] == 0xFFF and rec_info['mnc'] == 0xFFF:
+			rec_str = "unused"
+		else:
+			rec_str = "MCC: %3s MNC: %3s AcT: %s" % (rec_info['mcc'], rec_info['mnc'], ", ".join(rec_info['act']))
+		s += "%s # %s\n" % (rec_data, rec_str)
+	return s

@@ -25,6 +25,8 @@ def mcc_from_plmn(plmn):
 	digit1 = ia[0] & 0x0F		# 1st byte, LSB
 	digit2 = (ia[0] & 0xF0) >> 4	# 1st byte, MSB
 	digit3 = ia[1] & 0x0F		# 2nd byte, LSB
+	if digit3 == 0xF and digit2 == 0xF and digit1 == 0xF:
+		return 0xFFF # 4095
 	mcc = digit1 * 100
 	mcc += digit2 * 10
 	mcc += digit3

@@ -20,6 +20,9 @@ class DecTestCase(unittest.TestCase):
 	def testDecMCCfromPLMN(self):
 		self.assertEqual(dec.mcc_from_plmn("92f501"), 295)
 
+	def testDecMCCfromPLMN_unused(self):
+		self.assertEqual(dec.mcc_from_plmn("ff0f00"), 4095)
+
 	def testDecMNCfromPLMN_twoDigitMNC(self):
 		self.assertEqual(dec.mnc_from_plmn("92f501"), 10)
 

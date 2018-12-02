@@ -1,13 +1,5 @@
-def hexstr_to_intarr(s):
-	a = []
-	for i in range(0, len(s) / 2):
-		offset = 2 * i
-		msb_nib = s[offset]
-		lsb_nib = s[offset + 1]
-		tmp = msb_nib + lsb_nib
-		v = int(tmp, 16)
-		a.append(v)
-	return a
+def h2i(s):
+	return [(int(x,16)<<4)+int(y,16) for x,y in zip(s[0::2], s[1::2])]
 
 def hexstr_to_fivebytearr(input_str):
 	a = []
@@ -21,7 +13,7 @@ def hexstr_to_fivebytearr(input_str):
 
 # Accepts hex string representing three bytes
 def mcc_from_plmn(plmn):
-	ia = hexstr_to_intarr(plmn)
+	ia = h2i(plmn)
 	digit1 = ia[0] & 0x0F		# 1st byte, LSB
 	digit2 = (ia[0] & 0xF0) >> 4	# 1st byte, MSB
 	digit3 = ia[1] & 0x0F		# 2nd byte, LSB
@@ -33,7 +25,7 @@ def mcc_from_plmn(plmn):
 	return mcc
 
 def mnc_from_plmn(plmn):
-	ia = hexstr_to_intarr(plmn)
+	ia = h2i(plmn)
 	digit1 = ia[2] & 0x0F		# 3rd byte, LSB
 	digit2 = (ia[2] & 0xF0) >> 4	# 3rd byte, MSB
 	digit3 = (ia[1] & 0xF0) >> 4	# 2nd byte, MSB
@@ -59,7 +51,7 @@ def act(twohexbytes):
 		{'bit':  5, 'name': "cdma2000 HRPD"},
 		{'bit':  4, 'name': "cdma2000 1xRTT"},
 	]
-	ia = hexstr_to_intarr(twohexbytes)
+	ia = h2i(twohexbytes)
 	u16t = (ia[0] << 8)|ia[1]
 	sel = []
 	for a in act_list:

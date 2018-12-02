@@ -6,7 +6,7 @@ import dec
 class DecTestCase(unittest.TestCase):
 
 	def testHexStringToIntArray(self):
-		self.assertEqual(dec.hexstr_to_intarr("ff1020"), [255, 16, 32])
+		self.assertEqual(dec.h2i("ff1020"), [255, 16, 32])
 
 	def testSplitHexStringToListOf5ByteEntries(self):
 		input_str = "ffffff0003ffffff0002ffffff0001"

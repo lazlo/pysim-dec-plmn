@@ -70,7 +70,7 @@ def dec_xplmn_w_act(fivehexbytes):
 	res['act'] = dec_act(act_str)
 	return res
 
-def print_xplmn_w_act(hexstr):
+def format_xplmn_w_act(hexstr):
 	s = ""
 	for rec_data in hexstr_to_fivebytearr(hexstr):
 		rec_info = dec_xplmn_w_act(rec_data)

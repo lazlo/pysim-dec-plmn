@@ -55,7 +55,7 @@ ffffff0000 # unused
 ffffff0000 # unused
 ffffff0000 # unused
 '''
-		self.assertEqual(dec.print_xplmn_w_act(input_str), expected)
+		self.assertEqual(dec.format_xplmn_w_act(input_str), expected)
 
 if __name__ == "__main__":
 	unittest.main()

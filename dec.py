@@ -1,15 +1,8 @@
 def h2i(s):
 	return [(int(x,16)<<4)+int(y,16) for x,y in zip(s[0::2], s[1::2])]
 
-def hexstr_to_fivebytearr(input_str):
-	a = []
-	chars = 10 # hex ascii characters in a record
-	n_records = len(input_str) / chars
-	for i in range(0, n_records):
-		offset = i * chars
-		upto = offset + chars
-		a.append(input_str[offset:upto])
-	return a
+def hexstr_to_fivebytearr(s):
+	return [s[i:i+10] for i in range(0, len(s), 10) ]
 
 # Accepts hex string representing three bytes
 def dec_mcc_from_plmn(plmn):
